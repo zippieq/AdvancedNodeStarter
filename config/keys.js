@@ -1,7 +1,20 @@
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./prod');
-} else if (process.env.NODE_ENV === 'ci') {
-  module.exports = require('./ci');
-} else {
-  module.exports = require('./dev');
+import prodConfig from './prod.js';
+import ciConfig from './ci.js';
+import devConfig from './dev.js';
+
+const env = process.env.NODE_ENV || 'development';
+
+let keys;
+
+switch (env) {
+  case 'production':
+    keys = prodConfig;
+    break;
+  case 'ci':
+    keys = ciConfig;
+    break;
+  default:
+    keys = devConfig;
 }
+
+export default keys;

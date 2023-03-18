@@ -1,9 +1,11 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const mongoose = require('mongoose');
-const keys = require('../config/keys');
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import mongoose from 'mongoose';
+import keys from '../config/keys.js';
+import User from '../models/User.js';
 
-const User = mongoose.model('User');
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.mongoURI);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -40,3 +42,5 @@ passport.use(
     }
   )
 );
+
+export default passport;

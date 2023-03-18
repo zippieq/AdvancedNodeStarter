@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const requireLogin = require('../middlewares/requireLogin');
+import mongoose from 'mongoose';
+import requireLogin from '../middlewares/requireLogin.js';
+import Blog from '../models/Blog.js';
 
-const Blog = mongoose.model('Blog');
-
-module.exports = app => {
+export default app => {
   app.get('/api/blogs/:id', requireLogin, async (req, res) => {
     const blog = await Blog.findOne({
       _user: req.user.id,
@@ -32,7 +31,7 @@ module.exports = app => {
       await blog.save();
       res.send(blog);
     } catch (err) {
-      res.send(400, err);
+      res.status(400).send(err);
     }
   });
 };

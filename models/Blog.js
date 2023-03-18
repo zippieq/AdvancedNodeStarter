@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const blogSchema = new Schema({
@@ -8,4 +8,4 @@ const blogSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-mongoose.model('Blog', blogSchema);
+export default mongoose.model('Blog', blogSchema);
